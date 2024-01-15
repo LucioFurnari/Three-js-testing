@@ -21,11 +21,17 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 10);
 directionalLight.castShadow = true;
 directionalLight.position.set(-30, 50, 0);
+directionalLight.shadow.camera.bottom = -12;
+directionalLight.shadow.camera.top = 12;
 scene.add(directionalLight);
 
 // Directiona light helper
 const dLightHelper = new THREE.DirectionalLightHelper(directionalLight)
 scene.add(dLightHelper)
+
+// Directional light shadow helper
+const dLightShadowHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
+scene.add(dLightShadowHelper)
 
 // Create cube geometry and material
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
