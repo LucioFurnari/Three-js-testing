@@ -1,7 +1,29 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import nebula from './assets/images/nebula.jpg';
+import stars from './assets/images/stars.jpg';
 
+// Create scene
 const scene = new THREE.Scene();
+
+// Add fog to the scene
+scene.fog = new THREE.Fog(0xFFFFFF, 0, 200);
+
+// Add background image to the scene
+const textureLoader = new THREE.TextureLoader()
+scene.background = textureLoader.load(nebula);
+
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+// scene.background = cubeTextureLoader.load([
+//   nebula,
+//   nebula,
+//   stars,
+//   stars,
+//   stars,
+//   stars,
+// ]);
+
+// Create camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGL1Renderer();
