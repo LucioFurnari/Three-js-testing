@@ -15,7 +15,7 @@ document.body.appendChild(renderer.domElement);
 
 // Create ambient light
 const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
+// scene.add(ambientLight);
 
 //Create directional light
 const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 10);
@@ -23,15 +23,26 @@ directionalLight.castShadow = true;
 directionalLight.position.set(-30, 50, 0);
 directionalLight.shadow.camera.bottom = -12;
 directionalLight.shadow.camera.top = 12;
-scene.add(directionalLight);
+// scene.add(directionalLight);
 
 // Directiona light helper
 const dLightHelper = new THREE.DirectionalLightHelper(directionalLight)
-scene.add(dLightHelper)
+// scene.add(dLightHelper)
 
 // Directional light shadow helper
 const dLightShadowHelper = new THREE.CameraHelper(directionalLight.shadow.camera);
-scene.add(dLightShadowHelper)
+// scene.add(dLightShadowHelper)
+
+// Create spot light
+const spotLight = new THREE.SpotLight(0xFFFFFF,1000);
+spotLight.position.set(-20, 20, 0)
+spotLight.castShadow = true;
+spotLight.angle = 0.4;
+scene.add(spotLight);
+
+// Spotlight helper
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
 
 // Create cube geometry and material
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
