@@ -72,6 +72,24 @@ const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+// Create cube with texture
+const box2Geometry = new THREE.BoxGeometry(4, 4, 4);
+const box2Material = new THREE.MeshBasicMaterial({ 
+  // color: 0x00FF00,
+  map: textureLoader.load(nebula),
+});
+const box2MultiMaterial = [
+  new THREE.MeshBasicMaterial({map: textureLoader.load(nebula),}),
+  new THREE.MeshBasicMaterial({map: textureLoader.load(nebula),}),
+  new THREE.MeshBasicMaterial({map: textureLoader.load(stars),}),
+  new THREE.MeshBasicMaterial({map: textureLoader.load(nebula),}),
+  new THREE.MeshBasicMaterial({map: textureLoader.load(stars),}),
+  new THREE.MeshBasicMaterial({map: textureLoader.load(nebula),})
+]
+const box2 = new THREE.Mesh(box2Geometry, box2MultiMaterial);
+box2.position.set(10,2,10)
+scene.add(box2);
+
 // Create plane
 const planeGeometry = new THREE.PlaneGeometry(30, 30);
 const planeMaterial = new THREE.MeshStandardMaterial({ 
