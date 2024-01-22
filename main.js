@@ -120,11 +120,39 @@ camera.position.y = 20;
 camera.position.x = 20
 orbit.update();
 
+const mousePosition = new THREE.Vector2();
+
+window.addEventListener('mousemove', function (e) {
+  mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mousePosition.y = - (e.clientY / window.innerHeight) * 2 + 1;
+});
+
+const rayCaster = new THREE.Raycaster();
+
+
+// Create sphere with shaders
+const vShader = 'void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
+const fShader = 'void main() { gl_FragColor = vec4(0.5, 0.5, 1.0, 1.0); }'
+
+const sphere2Geometry = new THREE.SphereGeometry(4);
+const sphere2Material = new THREE.ShaderMaterial({
+  vertexShader: vShader,
+  fragmentShader: fShader,
+});
+const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
+scene.add(sphere2);
+sphere2.position.set(-5, 10, 10);
+
 function animate() {
   requestAnimationFrame(animate);
 
   // cube.rotation.x += 0.01;
   // cube.rotation.y += 0.01;
+
+  // rayCaster.setFromCamera(mousePosition, camera);
+  // const intersects = rayCaster.intersectObject(scene.children);
+  // console.log(intersects)
+
   renderer.render(scene, camera);
 }
 animate();
