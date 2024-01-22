@@ -2,6 +2,10 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import nebula from './assets/images/nebula.jpg';
 import stars from './assets/images/stars.jpg';
+import { GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
+
+// Import 3d model
+const monkeyUrl = new URL('./assets/monkey.glb', import.meta.url);
 
 // Create scene
 const scene = new THREE.Scene();
@@ -45,7 +49,7 @@ directionalLight.castShadow = true;
 directionalLight.position.set(-30, 50, 0);
 directionalLight.shadow.camera.bottom = -12;
 directionalLight.shadow.camera.top = 12;
-// scene.add(directionalLight);
+scene.add(directionalLight);
 
 // Directiona light helper
 const dLightHelper = new THREE.DirectionalLightHelper(directionalLight)
@@ -142,6 +146,16 @@ const sphere2Material = new THREE.ShaderMaterial({
 const sphere2 = new THREE.Mesh(sphere2Geometry, sphere2Material);
 scene.add(sphere2);
 sphere2.position.set(-5, 10, 10);
+
+
+const assetLoader = new GLTFLoader();
+assetLoader.load(monkeyUrl.href, function (gltf) {
+  const model = gltf.scene;
+  scene.add(model);
+  model.position.set(-12, 4, 10);
+}, undefined, function (error) {
+  console.error(error);
+});
 
 function animate() {
   requestAnimationFrame(animate);
